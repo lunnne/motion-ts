@@ -3,6 +3,7 @@ export class ImageComponent {
     constructor(path: string , imageTitle : string) {
         this.element = document.createElement('li')
         this.element.innerHTML = `
+        <div>Hi</div>
         <img src=${path} alt="image">
         <p>${imageTitle}</p>`
     }
