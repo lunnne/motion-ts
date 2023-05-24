@@ -12,4 +12,5 @@ export class NoteComponent extends BaseComponent<HTMLElement> {
     const noteBody = this.element.querySelector('.note_body')! as HTMLParagraphElement
     noteBody.textContent = bodyText
   }
+  
 }
