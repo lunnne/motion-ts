@@ -6,21 +6,15 @@ export interface Composable {
 
 type OnCloseListener = () => void;
 
-export class PageComponent extends BaseComponent<HTMLUListElement> implements Composable {
-  constructor() {
-    super('<ul class="page"></ul>');
-  }
-  addChild(section: Component) {
-    const item = new PageItemComponent();
-    item.addChild(section);
-    item.attachTo(this.element, 'beforeend');
-    item.setOnCloseListener(()=> {
-     item.removeFrom(this.element) 
-    })
-  }
+interface SectionContainer extends Component, Composable {
+  setOnCloseListener(listener: OnCloseListener) : void
 }
 
-export class PageItemComponent extends BaseComponent<HTMLElement> implements Composable {
+type SectionContainerConstructor = {
+  new () : SectionContainer
+}
+
+export class PageItemComponent extends BaseComponent<HTMLElement> implements SectionContainer {
   private closeListener: OnCloseListener | undefined;
   constructor() {
     super(`<li class="page-item">
@@ -28,9 +22,9 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Com
         <div class="page-item_controls">
           <button class="close">&times;</button>
         </div>
-      </li>`);
-    const deleteBtn = this.element.querySelector('.close')! as HTMLButtonElement;
-    deleteBtn.onclick = () => {
+        </li>`);
+        const deleteBtn = this.element.querySelector('.close')! as HTMLButtonElement;
+        deleteBtn.onclick = () => {
       this.closeListener && this.closeListener();
     };
   }
@@ -42,5 +36,19 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Com
 
   setOnCloseListener(listener: OnCloseListener) {
     this.closeListener = listener;
+  }
+}
+
+export class PageComponent extends BaseComponent<HTMLUListElement> implements Composable {
+  constructor(private pageItemConstructor : SectionContainerConstructor) {
+    super('<ul class="page"></ul>');
+  }
+  addChild(section: Component) {
+    const item = new this.pageItemConstructor();
+    item.addChild(section);
+    item.attachTo(this.element, 'beforeend');
+    item.setOnCloseListener(()=> {
+     item.removeFrom(this.element) 
+    })
   }
 }

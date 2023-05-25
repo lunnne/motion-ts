@@ -1,4 +1,4 @@
-import { Composable, PageComponent } from './components/page/page.js';
+import { Composable, PageComponent, PageItemComponent } from './components/page/page.js';
 import { ImageComponent } from './components/item/image.js';
 import { VideoComponent } from './components/item/video.js';
 import { NoteComponent } from './components/item/note.js';
@@ -8,7 +8,7 @@ import { Component } from './components/base.js';
 class App {
   private readonly page: Component & Composable;
   constructor(appRoot: HTMLElement) {
-    this.page = new PageComponent();
+    this.page = new PageComponent(PageItemComponent)
     this.page.attachTo(appRoot);
 
     const image = new ImageComponent('https://picsum.photos/200/300', 'my Image');
