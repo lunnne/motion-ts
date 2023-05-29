@@ -15,7 +15,6 @@ class App {
         this.page.addChild(todo);
         const imageBtn = document.querySelector('#image_btn');
         imageBtn.addEventListener('click', () => {
-            console.log("clicked");
             const dialog = new DialogComponent();
             dialog.setOnCloseListener(() => {
                 dialog.removeFrom(document.body);
