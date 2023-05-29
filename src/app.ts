@@ -1,43 +1,69 @@
 import { Composable, PageComponent, PageItemComponent } from './components/page/page.js';
 import { ImageComponent } from './components/item/image.js';
-// import { VideoComponent } from './components/item/video.js';
-// import { NoteComponent } from './components/item/note.js';
-// import { TodoComponent } from './components/item/todo.js';
+import { VideoComponent } from './components/item/video.js';
+import { NoteComponent } from './components/item/note.js';
+import { TodoComponent } from './components/item/todo.js';
 import { Component } from './components/base.js';
 import { DialogComponent } from './components/dialog/dialog.js';
 import { MediaSectionInput } from './components/dialog/Input/media-input.js';
+import { TextSectionInput } from './components/dialog/Input/text-input.js';
 
+type  InputComponentConstructor<T = MediaSectionInput | TextSectionInput> = {
+  new (): T;
+};
 class App {
   private readonly page: Component & Composable;
-  constructor(appRoot: HTMLElement, dialogRoot: HTMLElement) {
+  constructor(appRoot: HTMLElement, private dialogRoot: HTMLElement) {
     this.page = new PageComponent(PageItemComponent);
     this.page.attachTo(appRoot);
 
-    // const video = new VideoComponent('https://youtu.be/D7cwvvA7cP0', 'my Video');
-    // this.page.addChild(video);
+    this.bindElementToDialog<MediaSectionInput>(
+      '#image_btn',
+      MediaSectionInput,
+      (input: MediaSectionInput) => new ImageComponent(input.title, input.url)
+    );
+    this.bindElementToDialog<MediaSectionInput>(
+      '#video_btn',
+      MediaSectionInput,
+      (input: MediaSectionInput) => new VideoComponent(input.title, input.url)
+    );
+    this.bindElementToDialog<TextSectionInput>(
+      '#note_btn',
+      TextSectionInput,
+      (input: TextSectionInput) => new NoteComponent(input.title, input.body)
+    );
+    this.bindElementToDialog<TextSectionInput>(
+      '#todo_btn',
+      TextSectionInput,
+      (input: TextSectionInput) => new TodoComponent(input.title, input.body)
+    );
+  }
 
-    // const note = new NoteComponent('my Note', 'typescript project');
-    // this.page.addChild(note);
-
-    // const todo = new TodoComponent('오늘의 할일', 'motion project');
-    // this.page.addChild(todo);
-
-    const imageBtn = document.querySelector('#image_btn')! as HTMLButtonElement;
-
-    imageBtn.addEventListener('click', () => {
+  private bindElementToDialog<T extends MediaSectionInput | TextSectionInput>(
+    selector: string,
+    InputComponent: InputComponentConstructor<T>,
+    makeSection: (input: T) => Component
+  ) {
+    const element = document.querySelector(selector)! as HTMLButtonElement;
+    element.addEventListener('click', () => {
+      console.log('clicked!');
+      
       const dialog = new DialogComponent();
-      const inputSection = new MediaSectionInput()
+      const input = new InputComponent();
+     
+      dialog.addChild(input);
+      dialog.attachTo(this.dialogRoot);
+
       dialog.setOnCloseListener(() => {
-        dialog.removeFrom(dialogRoot);
+        dialog.removeFrom(this.dialogRoot);
       });
+     
       dialog.setOnSubmitListener(() => {
         // 섹션을 만들어서 페이지에 추가 해준다
-        const image = new ImageComponent(inputSection.title, inputSection.url)
-        this.page.addChild(image)
-        dialog.removeFrom(dialogRoot);
+        const image = makeSection(input);
+        this.page.addChild(image);
+        dialog.removeFrom(this.dialogRoot);
       });
-      dialog.addChild(inputSection)
-      dialog.attachTo(dialogRoot);
     });
   }
 }
