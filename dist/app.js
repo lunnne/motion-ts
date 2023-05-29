@@ -1,29 +1,26 @@
 import { PageComponent, PageItemComponent } from './components/page/page.js';
 import { ImageComponent } from './components/item/image.js';
-import { NoteComponent } from './components/item/note.js';
-import { TodoComponent } from './components/item/todo.js';
 import { DialogComponent } from './components/dialog/dialog.js';
+import { MediaSectionInput } from './components/dialog/Input/media-input.js';
 class App {
-    constructor(appRoot) {
+    constructor(appRoot, dialogRoot) {
         this.page = new PageComponent(PageItemComponent);
         this.page.attachTo(appRoot);
-        const image = new ImageComponent('https://picsum.photos/200/300', 'my Image');
-        this.page.addChild(image);
-        const note = new NoteComponent('my Note', 'typescript project');
-        this.page.addChild(note);
-        const todo = new TodoComponent('오늘의 할일', 'motion project');
-        this.page.addChild(todo);
         const imageBtn = document.querySelector('#image_btn');
         imageBtn.addEventListener('click', () => {
             const dialog = new DialogComponent();
+            const inputSection = new MediaSectionInput();
             dialog.setOnCloseListener(() => {
-                dialog.removeFrom(document.body);
+                dialog.removeFrom(dialogRoot);
             });
             dialog.setOnSubmitListener(() => {
-                dialog.removeFrom(document.body);
+                const image = new ImageComponent(inputSection.title, inputSection.url);
+                this.page.addChild(image);
+                dialog.removeFrom(dialogRoot);
             });
-            dialog.attachTo(document.body);
+            dialog.addChild(inputSection);
+            dialog.attachTo(dialogRoot);
         });
     }
 }
-new App(document.querySelector('.document'));
+new App(document.querySelector('.document'), document.body);
