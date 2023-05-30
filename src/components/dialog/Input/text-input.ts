@@ -4,11 +4,11 @@ export class TextSectionInput extends BaseComponent<HTMLElement> {
   constructor() {
     super(`<div>
         <div class="form_container">
-          <label for="title">Title</label>
+          <label for="title">Title : </label>
           <input type="text" id="title" />
         </div>
         <div class="form_container">
-          <label for="body">Body</label>
+          <label for="body">Body : </label>
           <textarea type="text" row="3" id="body" ></textarea>
         </div>
       </div>`);

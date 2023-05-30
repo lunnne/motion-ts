@@ -3,8 +3,8 @@ import { BaseComponent } from '../base.js';
 export class ImageComponent extends BaseComponent<HTMLElement> {
   constructor(title: string, url: string) {
     super(`<section class="image">
-          <div class="image_holder"><img class="image_thumbnail"></div>
-          <h2 class="image_title"></h2>
+    <div class="image_holder"><img class="image_thumbnail"></div>
+    <h2 class="image_title"></h2>
           </section>`);
     const imageElement = this.element.querySelector('.image_thumbnail')! as HTMLImageElement;
     imageElement.src = url;
