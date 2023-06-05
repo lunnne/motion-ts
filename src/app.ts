@@ -4,11 +4,11 @@ import { VideoComponent } from './components/item/video.js';
 import { NoteComponent } from './components/item/note.js';
 import { TodoComponent } from './components/item/todo.js';
 import { Component } from './components/base.js';
-import { DialogComponent } from './components/dialog/dialog.js';
+import { DialogComponent, MediaData, TextData } from './components/dialog/dialog.js';
 import { MediaSectionInput } from './components/dialog/Input/media-input.js';
 import { TextSectionInput } from './components/dialog/Input/text-input.js';
 
-type  InputComponentConstructor<T = MediaSectionInput | TextSectionInput> = {
+type InputComponentConstructor<T extends (MediaData | TextData) & Component> = {
   new (): T;
 };
 class App {
@@ -39,7 +39,7 @@ class App {
     );
   }
 
-  private bindElementToDialog<T extends MediaSectionInput | TextSectionInput>(
+  private bindElementToDialog<T extends (MediaData | TextData) & Component>(
     selector: string,
     InputComponent: InputComponentConstructor<T>,
     makeSection: (input: T) => Component
@@ -47,17 +47,17 @@ class App {
     const element = document.querySelector(selector)! as HTMLButtonElement;
     element.addEventListener('click', () => {
       console.log('clicked!');
-      
+
       const dialog = new DialogComponent();
       const input = new InputComponent();
-     
+
       dialog.addChild(input);
       dialog.attachTo(this.dialogRoot);
 
       dialog.setOnCloseListener(() => {
         dialog.removeFrom(this.dialogRoot);
       });
-     
+
       dialog.setOnSubmitListener(() => {
         // 섹션을 만들어서 페이지에 추가 해준다
         const image = makeSection(input);
