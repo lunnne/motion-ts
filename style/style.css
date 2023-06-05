@@ -39,8 +39,8 @@ dialog {
   border: 0;
 }
 body {
-  background: rgb(194, 177, 255);
-  background: linear-gradient(180deg, rgba(194, 177, 255, 1) 0%, rgba(67, 61, 147, 1) 100%);
+  background: rgb(112,117,173);
+  background: linear-gradient(180deg, rgba(112,117,173,1) 0%, rgba(67,61,147,1) 100%);
   display: flex;
   justify-content: center;
   width: 100vw;
@@ -156,9 +156,17 @@ body {
   margin-right: 0.5rem;
 }
 
+.close:hover,
+.close:focus {
+  transform: scale(1.2);
+  color: var(--bg-accent-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
 #dialog_body {
   margin-bottom: 1.5rem;
-  padding: 0 1rem
+  padding: 0 1rem;
 }
 
 #dialog_body div {
@@ -179,25 +187,30 @@ body {
 }
 .dialog_submit {
   background-color: var(--bg-accent-color);
-  padding: 0.3rem 0;
+  padding: 1rem 0;
   color: var(--text-off-white);
   font-size: 1rem;
-  height: 2.5rem;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
 
+.dialog_submit:hover,
+.dialog_submit:focus {
+  background-color: var(--light-purple);
+  cursor: pointer;
+}
+
 /* section */
 .page-item {
- display: grid;
- align-items: center;
- grid-template-columns: 7fr 1fr;
- margin: 1rem 1rem;
- -webkit-box-shadow: 5px 6px 17px 0px rgba(91,97,133,0.68);
--moz-box-shadow: 5px 6px 17px 0px rgba(91,97,133,0.68);
-box-shadow: 5px 6px 17px 0px rgba(91,97,133,0.68);
- border-radius: 0.5rem;
- color: var(--text-color);
+  display: grid;
+  align-items: center;
+  grid-template-columns: 7fr 1fr;
+  margin: 1rem 1rem;
+  -webkit-box-shadow: 5px 6px 17px 0px rgba(91, 97, 133, 0.68);
+  -moz-box-shadow: 5px 6px 17px 0px rgba(91, 97, 133, 0.68);
+  box-shadow: 5px 6px 17px 0px rgba(91, 97, 133, 0.68);
+  border-radius: 0.5rem;
+  color: var(--text-color);
 }
 
 .page-item_controls {
@@ -205,19 +218,35 @@ box-shadow: 5px 6px 17px 0px rgba(91,97,133,0.68);
   align-self: center;
 }
 
-.image, .video {
+.image,
+.video {
   display: grid;
   grid-template-columns: 4fr 3fr;
-  
 }
 
-.image_title, .video_title {
+.image_title,
+.video_title {
   /* justify-self: center; */
   align-self: center;
   margin-left: 1rem;
 }
 
-.image_thumbnail, .video_iframe {
-  height: 200px;
-  width: 450px;
+.video_iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.image_holder, .video_player {
+  height: 250px;
+  width: 100%;
+}
+.image_thumbnail {
+  width: 100%;
+  height: 100%;
+}
+
+/*--Note--*/
+
+.note, .todo {
+  padding: 0.5em;
 }
