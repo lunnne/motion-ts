@@ -10,16 +10,16 @@
 ## Main Features
 Motion App provides the following key features:
 
-+ Add Items: Users can add new notes with text, images, and videos.
++ __Add Items:__ Users can add new notes with text, images, and videos.
 
-+ Delete Items: Users can delete notes. 
++ __Delete Items:__ Users can delete notes. 
 
-+ List Items: A list of all created notes is available for users.
++ __List Items:__ A list of all created notes is available for users.
 
-+ Video URL Filtering: When users input a video URL, the application uses regular expressions to filter and extract the Video ID, returning a suitable src address for embedding.
++ __Video URL Filtering:__ When users input a video URL, the application uses regular expressions to filter and extract the Video ID, returning a suitable src address for embedding.
 
 ## Future Enhancements
 The following features are planned for future development:
 
-+ Media Post Drag and Drop: Implementing drag and drop functionality to allow users to rearrange media posts.
++ __Media Post Drag and Drop:__ Implementing drag and drop functionality to allow users to rearrange media posts.
 
