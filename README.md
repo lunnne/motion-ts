@@ -1,5 +1,8 @@
 # Motion App
-> Motion is a note-taking application that allows users to create notes with various media types, such as text, images, and videos. The application is implemented purely in TypeScript and follows the principles of Object-Oriented Programming (OOP).
+
+<img src="https://img.shields.io/badge/typescript-3178C6?style=flat&logo=typescript&logoColor=white"/> <img src="https://img.shields.io/badge/css3-1572B6?style=flat&logo=css3&logoColor=white"/> <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=flat&logo=Yarn&logoColor=white"/>
+
+>Motion is a note-taking application that allows users to create notes with various media types, such as text, images, and videos. The application is implemented purely in TypeScript and follows the principles of Object-Oriented Programming (OOP).
 
 ## Demo
 <img width="40%" src="https://github.com/lunnne/motion-ts/assets/94328456/382d058d-9019-4ec3-afb0-62292b0181e7"/>
